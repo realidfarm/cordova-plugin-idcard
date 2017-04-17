@@ -23,3 +23,7 @@ exports.ssFget = function(success, error) {
 exports.ssUp = function(success, error) {
     exec(success, error, "IdCard", "ssUp", []);
 };
+
+exports.Comparison = function(fingerInfo, success, error) {
+    exec(success, error, "IdCard", "Comparison", [fingerInfo]);
+};

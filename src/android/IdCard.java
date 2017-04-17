@@ -89,11 +89,28 @@ public class IdCard extends CordovaPlugin{
 				callbackContext.success(s);
 			}
         }else if (action.equals("ssUp")) {
-			fingerInfo1 = ssF.getFingerInfo(1, fingerInfo);
+			fingerInfo1 = ssF.getFingerInfoQuick(1, fingerInfo);
 			if(fingerInfo1!=null&&!fingerInfo1.equals("")){
 				callbackContext.success(fingerInfo1);
 			}else{
 				callbackContext.success("请采集指纹");
+			}
+        }else if (action.equals("Comparison")) {
+        	fingerInfo2 = args.getString(0);
+    		int iScore=-100;
+			if(fingerInfo1!=null&&fingerInfo2!=null){
+				 iScore=ssF.fingerComparison(fingerInfo1, fingerInfo2);
+			}else{
+				callbackContext.success("请采集指纹");
+			}
+			if(iScore==0){
+				callbackContext.success("指纹比对失败");
+			}else if (iScore == -1){
+				callbackContext.success("指纹比对失败" + iScore);
+			} else if (iScore > iFpCompareThreshold) {
+				callbackContext.success("指纹匹配成功,值为:" + iScore);
+			} else {
+				callbackContext.success("指纹不匹配,值为:" + iScore);
 			}
         }
         return false;
