@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
@@ -80,6 +81,14 @@ public class IdCard extends CordovaPlugin{
         	startInit();
 			callbackContext.success("上电成功");
         }else if (action.equals("ssFget")) {
+			fingerInfo = ssF.getFingerByteData();
+			if(fingerInfo==null){
+				callbackContext.success("采集图像数据失败");
+			}else{
+				int s = ssF.getFingerQuality(fingerInfo);
+				callbackContext.success(s);
+			}
+        }else if (action.equals("ssUp")) {
 			fingerInfo1 = ssF.getFingerInfo(1, fingerInfo);
 			if(fingerInfo1!=null&&!fingerInfo1.equals("")){
 				callbackContext.success(fingerInfo1);
@@ -103,6 +112,7 @@ public class IdCard extends CordovaPlugin{
 			// TODO Auto-generated method stub
 			if(Init()){
 				Log.e(TAG, "上电成功");
+				new Thread(fpRun).start();
 			}
 		}
 	};
@@ -110,7 +120,8 @@ public class IdCard extends CordovaPlugin{
 	public boolean Init() {
 		// TODO Auto-generated method stub
 		if (ssF == null) {
-			ssF = new SSFingerInterfaceImp(null);
+			Context context=this.cordova.getActivity().getApplicationContext(); 
+			ssF = new SSFingerInterfaceImp(context);
 		}
 		int power_res = ssF.f_powerOn();
 		if (power_res == 0) {
@@ -136,6 +147,8 @@ public class IdCard extends CordovaPlugin{
 			return false;
 		}
 	}
+
+
 	
 	Runnable fpRun=new Runnable() {
 		@Override
@@ -148,13 +161,31 @@ public class IdCard extends CordovaPlugin{
 				SystemClock.sleep(1000);
 				if(fpCon==0){
 					Log.e(TAG, "指纹上电成功");
+					handler.sendEmptyMessage(0x01);
 					break;
 				}else if(i==4){
 					Log.e(TAG, "指纹上电失败");
+					handler.sendEmptyMessage(0x02);
 					break;
 				}
 			}
 		}
 	};
 	
+	Handler handler=new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch(msg.what){
+			case 0x01:
+				if(pd!=null)
+					pd.dismiss();
+					openFp=true;
+				break;
+			case 0x02:
+				if(pd!=null){
+					pd.dismiss();
+				}
+				break;
+			}
+		};
+	};
 }

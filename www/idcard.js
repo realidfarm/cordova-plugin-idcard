@@ -19,3 +19,7 @@ exports.ssFopen = function(success, error) {
 exports.ssFget = function(success, error) {
     exec(success, error, "IdCard", "ssFget", []);
 };
+
+exports.ssUp = function(success, error) {
+    exec(success, error, "IdCard", "ssUp", []);
+};
