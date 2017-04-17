@@ -112,6 +112,26 @@ public class IdCard extends CordovaPlugin{
 			} else {
 				callbackContext.success("指纹不匹配,值为:" + iScore);
 			}
+        }else if (action.equals("idComparison")) {
+        	try{
+				int iScore=-100;
+			    if(fingerInfo1!=null&&id2Result[15]!=null){
+					iScore=ssF.fingerComparison(fingerInfo1, id2Result[17]);
+				}else{
+					callbackContext.success("是否采集指纹,所读身份证是否存在指纹信息");
+				}
+				if(iScore==0){
+					callbackContext.success("指纹比对失败");
+				}else if (iScore == -1) {
+					callbackContext.success("验证身份证指位1失败" + iScore);
+				} else if (iScore > iFpCompareThreshold) {
+					callbackContext.success("验证身份证指位1匹配成功,值为:" + iScore);
+				} else {
+					callbackContext.success("验证身份证指位1不匹配,值为:" + iScore);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
         }
         return false;
     }

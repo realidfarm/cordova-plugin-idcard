@@ -27,3 +27,7 @@ exports.ssUp = function(success, error) {
 exports.Comparison = function(fingerInfo, success, error) {
     exec(success, error, "IdCard", "Comparison", [fingerInfo]);
 };
+
+exports.idComparison = function(success, error) {
+    exec(success, error, "IdCard", "idComparison", []);
+};
