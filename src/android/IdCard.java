@@ -47,7 +47,7 @@ public class IdCard extends CordovaPlugin{
 			callbackContext.success("设备已开启");
         }else if (action.equals("read")) {
             readCard();
-            callbackContext.success(id2Result);
+            callbackContext.success(id2Result[0]);
         }else if (action.equals("close")) {
 			closeRet=id2Handle.closeReadCard();
 			if(closeRet!=1){
@@ -61,50 +61,9 @@ public class IdCard extends CordovaPlugin{
 	
 	private void  startInit() {
 		id2Handle=new ID2CardInterface();
-		HandlerThread loadHandlerThread = new HandlerThread("LoadThread");
-		loadHandlerThread.start();
-		Handler loadHandler = new Handler(loadHandlerThread.getLooper());
-		loadHandler.post(loadRunnable);
+
 	}
 	
-	Runnable loadRunnable=new Runnable() {
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			if(Init()){
-				Log.e(TAG, "上电成功");
-			}
-		}
-	};
-	
-	public boolean Init() {
-		if (ssF == null) {
-			ssF = new SSFingerInterfaceImp(MainActivity.this);
-		}
-		int power_res = ssF.f_powerOn();
-		if (power_res == 0) {
-			int fpCon = -1;
-			for (int i = 0; i < 5; i++) {
-				fpCon = ssF.SS_USBConnect();
-				SystemClock.sleep(1000);
-				Log.e(TAG, "循环中");
-				if (fpCon == 0) {
-					 Log.e(TAG, "指纹上电成功");
-					break;
-				} else if (i == 4) {
-					 Log.e(TAG, "指纹上电失败");
-					break;
-				}
-			}
-			if (fpCon == 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
 	
 	/** 
 	* @Title: readCard 
@@ -116,13 +75,13 @@ public class IdCard extends CordovaPlugin{
 	*/ 
 	private void readCard(){
 			if(openRet!=1){
-				myToast("读卡上电失败");
+				id2Result[0] = "读卡上电失败";
 			}else{
 				id2Result=id2Handle.readCardInfo();
 				if(id2Result[0].equalsIgnoreCase("0")){
 					id2Result=id2Handle.readCardInfo();
 				}else{
-					id2Result="读卡失败";
+					id2Result[0] = "读卡失败";
 				}
 			}
 	}
