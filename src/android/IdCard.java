@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -52,6 +53,8 @@ public class IdCard extends CordovaPlugin{
 			}else{
 				id2Result = id2Handle.readCardInfo();
 				if(id2Result[0].equalsIgnoreCase("0")){
+					byte[] bid2Result = SSUtil.hexStringToByte(id2Result[12]);
+					id2Result[12] = Base64.encodeToString(bid2Result, 0);
 		            callbackContext.success(Arrays.toString(id2Result));
 				}else{
 		            callbackContext.success("读卡失败");
