@@ -1,13 +1,13 @@
 var exec = require('cordova/exec');
 
-exports.openDevice = function(success, error) {
+exports.open = function(success, error) {
     exec(success, error, "IdCard", "open", []);
 };
 
-exports.closeDevice = function(success, error) {
+exports.read = function(success, error) {
     exec(success, error, "IdCard", "read", []);
 };
 
-exports.closeDevice = function(success, error) {
+exports.close = function(success, error) {
     exec(success, error, "IdCard", "close", []);
 };
