@@ -41,6 +41,15 @@ public class IdCard extends CordovaPlugin{
 	public String TAG="ss_500";
 	private int openRet=0,closeRet=0;
 	
+	private ImageView iv_fp;
+	private SSFingerInterfaceImp ssF=null;
+	private ProgressDialog pd=null;
+	private String fingerInfo1,fingerInfo2;
+	private int iFpCompareThreshold=40;
+	private TextView tv_fpHint;
+	private boolean openFp=false;
+	byte[] fingerInfo = new byte[93238];
+	
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         Activity activity = this.cordova.getActivity();
         if (action.equals("open")) {
@@ -67,7 +76,85 @@ public class IdCard extends CordovaPlugin{
 			}else{
 				callbackContext.success("设备已关闭");
 			}
+        }else if (action.equals("ssFopen")) {
+        	startInit();
+			callbackContext.success("上电成功");
+        }else if (action.equals("ssFget")) {
+			fingerInfo1 = ssF.getFingerInfo(1, fingerInfo);
+			if(fingerInfo1!=null&&!fingerInfo1.equals("")){
+				callbackContext.success(fingerInfo1);
+			}else{
+				callbackContext.success("请采集指纹");
+			}
         }
         return false;
     }
+    
+	private void  startInit() {
+		HandlerThread 	loadHandlerThread = new HandlerThread("LoadThread");
+		loadHandlerThread.start();
+		Handler loadHandler = new Handler(loadHandlerThread.getLooper());
+		loadHandler.post(loadRunnable);
+	}
+	
+	Runnable loadRunnable=new Runnable() {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			if(Init()){
+				Log.e(TAG, "上电成功");
+			}
+		}
+	};
+	
+	public boolean Init() {
+		// TODO Auto-generated method stub
+		if (ssF == null) {
+			ssF = new SSFingerInterfaceImp(null);
+		}
+		int power_res = ssF.f_powerOn();
+		if (power_res == 0) {
+			int fpCon = -1;
+			for (int i = 0; i < 5; i++) {
+				fpCon = ssF.SS_USBConnect();
+				SystemClock.sleep(1000);
+				Log.e(TAG, "循环中");
+				if (fpCon == 0) {
+					 Log.e(TAG, "指纹上电成功");
+					break;
+				} else if (i == 4) {
+					 Log.e(TAG, "指纹上电失败");
+					break;
+				}
+			}
+			if (fpCon == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	Runnable fpRun=new Runnable() {
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			//大约需要3s时间 5s连接不上 可当做失败
+			Log.e(TAG, "btn_openFP5");
+			for(int i=0;i<5;i++){
+				int fpCon=ssF.SS_USBConnect();
+				SystemClock.sleep(1000);
+				if(fpCon==0){
+					Log.e(TAG, "指纹上电成功");
+					break;
+				}else if(i==4){
+					Log.e(TAG, "指纹上电失败");
+					break;
+				}
+			}
+		}
+	};
+	
 }

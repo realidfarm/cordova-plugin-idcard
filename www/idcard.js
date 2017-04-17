@@ -11,3 +11,11 @@ exports.read = function(success, error) {
 exports.close = function(success, error) {
     exec(success, error, "IdCard", "close", []);
 };
+
+exports.ssFopen = function(success, error) {
+    exec(success, error, "IdCard", "ssFopen", []);
+};
+
+exports.ssFget = function(success, error) {
+    exec(success, error, "IdCard", "ssFget", []);
+};
