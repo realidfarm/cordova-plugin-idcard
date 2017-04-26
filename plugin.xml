@@ -46,6 +46,9 @@
         
         <source-file src="src/android/IdCard.java" target-dir="src/com/realidfarm/idcard" />
 
+        <source-file src="src/android/success.wav" target-dir="res/raw" />
+        <source-file src="src/android/error.wav" target-dir="res/raw" />
+		
         <source-file src="src/android/android-support-v4.jar" target-dir="libs" />
         <source-file src="src/android/AS60x_SDK.jar" target-dir="libs" />
         <source-file src="src/android/SDSES_GPIOControl_1.0.jar" target-dir="libs" />
