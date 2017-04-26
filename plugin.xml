@@ -55,7 +55,7 @@
         <source-file src="src/android/AraBMApiDev.jar" target-dir="libs" />
         <source-file src="src/android/AraBMApiFp.jar" target-dir="libs" />
         <source-file src="src/android/bugly_crash_release__2.1.jar" target-dir="libs" />
-        <source-file src="src/android/SSPfinger-1.17.1.jar" target-dir="libs" />
+        <source-file src="src/android/SSPfinger-1.17.jar" target-dir="libs" />
 		
         <source-file src="src/android/armeabi/libfingerprint.so" target-dir="libs/armeabi" />
         <source-file src="src/android/armeabi/libFpQualityEmbed_jni.so" target-dir="libs/armeabi" />
