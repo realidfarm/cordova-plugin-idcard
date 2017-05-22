@@ -88,6 +88,13 @@ public class IdCard extends CordovaPlugin{
 				int s = ssF.getFingerQuality(fingerInfo);
 				callbackContext.success(s);
 			}
+        }else if (action.equals("ssFgetData")) {
+			fingerInfo = ssF.getFingerByteData();
+			if(fingerInfo==null){
+				callbackContext.success("采集图像数据失败");
+			}else{
+				callbackContext.success(fingerInfo);
+			}
         }else if (action.equals("ssUp")) {
 			fingerInfo1 = ssF.getFingerInfoQuick(1, fingerInfo);
 			if(fingerInfo1!=null&&!fingerInfo1.equals("")){
