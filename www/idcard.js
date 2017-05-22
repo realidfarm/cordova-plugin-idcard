@@ -20,6 +20,10 @@ exports.ssFget = function(success, error) {
     exec(success, error, "IdCard", "ssFget", []);
 };
 
+exports.ssFgetData = function(success, error) {
+    exec(success, error, "IdCard", "ssFgetData", []);
+};
+
 exports.ssUp = function(success, error) {
     exec(success, error, "IdCard", "ssUp", []);
 };
