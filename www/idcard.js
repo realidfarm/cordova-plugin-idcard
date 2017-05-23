@@ -20,8 +20,8 @@ exports.ssFget = function(success, error) {
     exec(success, error, "IdCard", "ssFget", []);
 };
 
-exports.ssFgetByte = function(success, error) {
-    exec(success, error, "IdCard", "ssFgetByte", []);
+exports.ssFgetBase64 = function(success, error) {
+    exec(success, error, "IdCard", "ssFgetBase64", []);
 };
 
 exports.ssFgetHex = function(success, error) {
