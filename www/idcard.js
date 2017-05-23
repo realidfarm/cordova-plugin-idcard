@@ -20,8 +20,12 @@ exports.ssFget = function(success, error) {
     exec(success, error, "IdCard", "ssFget", []);
 };
 
-exports.ssFgetData = function(success, error) {
-    exec(success, error, "IdCard", "ssFgetData", []);
+exports.ssFgetByte = function(success, error) {
+    exec(success, error, "IdCard", "ssFgetByte", []);
+};
+
+exports.ssFgetHex = function(success, error) {
+    exec(success, error, "IdCard", "ssFgetHex", []);
 };
 
 exports.ssUp = function(success, error) {
