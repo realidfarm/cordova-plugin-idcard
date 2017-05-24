@@ -93,8 +93,8 @@ public class IdCard extends CordovaPlugin{
 			if(fingerInfo==null){
 				callbackContext.success("采集图像数据失败");
 			}else{
-				fingerInfo1 = Base64.encodeToString(fingerInfo, 2045);
-				callbackContext.success(fingerInfo1);
+				String encodedfile = new String(Base64.encodeBase64(fingerInfo), "UTF-8");
+				callbackContext.success(encodedfile);
 			}
         }else if (action.equals("ssFgetHex")) {
 			fingerInfo = ssF.getFingerByteData();
@@ -124,7 +124,7 @@ public class IdCard extends CordovaPlugin{
 			}else if (iScore == -1){
 				callbackContext.success("指纹比对失败" + iScore);
 			} else if (iScore > iFpCompareThreshold) {
-				callbackContext.success("指纹匹配成功,值为:" + iScore);
+				callbackContext.success("匹配成功");
 			} else {
 				callbackContext.success("指纹不匹配,值为:" + iScore);
 			}
