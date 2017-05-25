@@ -46,10 +46,26 @@
         
         <source-file src="src/android/IdCard.java" target-dir="src/com/realidfarm/idcard" />
 
+        <source-file src="src/android/com/oliveapp/verify/sample/liveness/view_controller/FaceCaptureMainActivity.java" target-dir="src/com/oliveapp/verify/sample/liveness/view_controller" />
+        <source-file src="src/android/com/oliveapp/verify/sample/liveness/SampleFaceCaptureActivity.java" target-dir="src/com/oliveapp/verify/sample/liveness" />
+        <source-file src="src/android/com/oliveapp/verify/sample/liveness/SampleResultActivity.java" target-dir="src/com/oliveapp/verify/sample/liveness" />
+        <source-file src="src/android/com/oliveapp/verify/sample/model/FaceVerifyResult.aidl" target-dir="src/com/oliveapp/verify/sample/model" />
+        <source-file src="src/android/com/oliveapp/verify/sample/model/FaceVerifyResult.java" target-dir="src/com/oliveapp/verify/sample/model" />
+        <source-file src="src/android/com/oliveapp/verify/sample/service/FaceService.java" target-dir="src/com/oliveapp/verify/sample/service" />
+        <source-file src="src/android/com/oliveapp/verify/sample/service/IRemoteService.aidl" target-dir="src/com/oliveapp/verify/sample/service" />
+        <source-file src="src/android/com/oliveapp/verify/sample/service/ServiceFactory.java" target-dir="src/com/oliveapp/verify/sample/service" />
+
+        <source-file src="src/android/com/sdses/bean/ID2PicNoLic.java" target-dir="src/com/sdses/bean" />
+        <source-file src="src/android/com/sdses/beanmy/ID2Data.java" target-dir="src/com/sdses/beanmy" />
+        <source-file src="src/android/com/sdses/readcardservice/IReadCardService.aidl" target-dir="src/com/sdses/readcardservice" />
+        <source-file src="src/android/com/sdses/readcardservice/readCardConstants.java" target-dir="src/com/sdses/readcardservice" />
+        <source-file src="src/android/com/sdses/utils/AppConstant.java" target-dir="src/com/sdses/utils" />
+        <source-file src="src/android/com/sdses/utils/Utils.java" target-dir="src/com/sdses/utils" />
+        <source-file src="src/android/com/sdses/values/ClientVars.java" target-dir="src/com/sdses/values" />
+        
         <source-file src="src/android/success.wav" target-dir="res/raw" />
         <source-file src="src/android/error.wav" target-dir="res/raw" />
 		
-        <source-file src="src/android/android-support-v4.jar" target-dir="libs" />
         <source-file src="src/android/AS60x_SDK.jar" target-dir="libs" />
         <source-file src="src/android/SDSES_GPIOControl_1.0.jar" target-dir="libs" />
         <source-file src="src/android/SDSES_WltNoLic_1.2.jar" target-dir="libs" />
@@ -57,7 +73,12 @@
         <source-file src="src/android/AraBMApiFp.jar" target-dir="libs" />
         <source-file src="src/android/bugly_crash_release__2.1.jar" target-dir="libs" />
         <source-file src="src/android/SSPfinger-1.17.jar" target-dir="libs" />
-		
+
+        <source-file src="src/android/camera-release.aar" target-dir="libs" />
+        <source-file src="src/android/liboffline_face_verification-release.aar" target-dir="libs" />
+        <source-file src="src/android/livenessdetectionviewsdk-release.aar" target-dir="libs" />
+        <source-file src="src/android/livenessdetectorsdk-release.aar" target-dir="libs" />
+
         <source-file src="src/android/armeabi/libfingerprint.so" target-dir="libs/armeabi" />
         <source-file src="src/android/armeabi/libFpQualityEmbed_jni.so" target-dir="libs/armeabi" />
         <source-file src="src/android/armeabi/libSDSES_GPIOControl_1.0.so" target-dir="libs/armeabi" />
@@ -68,5 +89,16 @@
         <source-file src="src/android/armeabi/libAraBMApiFpAlgorithm.so" target-dir="libs/armeabi" />
         <source-file src="src/android/armeabi/libftrScanAPI.so" target-dir="libs/armeabi" />
         <source-file src="src/android/armeabi/libusb-1.0.so" target-dir="libs/armeabi" />
+
+        <source-file src="src/android/armeabi/libfingerprint.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libFpQualityEmbed_jni.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libSDSES_GPIOControl_1.0.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libSDSES_SerialPort_1.1.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libSDSES_Wlt_1.2.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libAraBMApiDev.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libAraBMApiFp.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libAraBMApiFpAlgorithm.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libftrScanAPI.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="src/android/armeabi/libusb-1.0.so" target-dir="libs/armeabi-v7a" />
     </platform>
 </plugin>
