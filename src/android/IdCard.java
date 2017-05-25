@@ -6,10 +6,14 @@ import java.util.Arrays;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +24,10 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Message;
+import android.os.IBinder;
 import android.os.SystemClock;
+import android.os.RemoteException;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -31,16 +38,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.sdses.fingerJar.SSFingerInterfaceImp;
 import com.sdses.id2CardInterface.ID2CardInterface;
 import com.sdses.tool.SSUtil;
 
+import com.oliveapp.verify.sample.service.FaceService;
+import com.oliveapp.verify.sample.service.IRemoteService;
+import com.oliveapp.verify.sample.liveness.SampleResultActivity;
+
 public class IdCard extends CordovaPlugin{
+
+	private static final int SERVICE_FACTORY_INIT_DONE = 0;
+	private static final int SERVICE_FACTORY_INIT_FAILED = 1;
 
 	ID2CardInterface id2Handle = null;
 	String id2Result[] = null;
 	public String TAG="ss_500";
 	private int openRet=0,closeRet=0;
+    private ProgressDialog mProgressDialog;
 	
 	private ImageView iv_fp;
 	private SSFingerInterfaceImp ssF=null;
@@ -50,9 +66,12 @@ public class IdCard extends CordovaPlugin{
 	private TextView tv_fpHint;
 	private boolean openFp=false;
 	byte[] fingerInfo = new byte[93238];
+    private IRemoteService mIRemoteService; // 跨进程Service
+    private boolean bIsInitialized; // 远程Service是否初始化完成
+	Activity activity = null;
 	
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        Activity activity = this.cordova.getActivity();
+        activity = this.cordova.getActivity();
         if (action.equals("open")) {
     		id2Handle = new ID2CardInterface();
     		openRet=id2Handle.openReadCard();
@@ -140,9 +159,59 @@ public class IdCard extends CordovaPlugin{
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-        }
+        } else if (action.equals("verification")) {
+		  mProgressDialog = ProgressDialog.show(activity, "正在初始化...", "请稍等...", true, false);
+		  Intent intent = new Intent(activity, FaceService.class);
+		  activity.startService(intent);
+		  activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+		  return true;
+		}
         return false;
     }
+
+	  private Handler handler1 = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+		  switch (msg.what) {
+			case SERVICE_FACTORY_INIT_FAILED:
+			  Toast.makeText(activity, "人像验证初始化失败，请重新打开程序", Toast.LENGTH_SHORT).show();
+			  mProgressDialog.dismiss();
+			  break;
+			case SERVICE_FACTORY_INIT_DONE:
+			  Toast.makeText(activity, "人像验证服务已连接", Toast.LENGTH_SHORT).show();
+			  mProgressDialog.dismiss();
+			  Intent i = new Intent(activity, SampleResultActivity.class);
+			  activity.startActivity(i);
+			  break;
+		  }
+		}
+	  };
+	
+	  private ServiceConnection mConnection = new ServiceConnection() {
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+
+		  mIRemoteService = IRemoteService.Stub.asInterface(service);
+
+		  new Thread(new Runnable() {
+			@Override
+			public void run() {
+			  try {
+				bIsInitialized = mIRemoteService.isInitialized();
+			  } catch (RemoteException e) {
+				Log.e(TAG, "unable to initialized", e);
+				bIsInitialized = false;
+			  }
+			  handler1.sendEmptyMessage(bIsInitialized ? SERVICE_FACTORY_INIT_DONE : SERVICE_FACTORY_INIT_FAILED);
+			}
+		  }).start();
+
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+		}
+	  };
     
 	private void  startInit() {
 		HandlerThread 	loadHandlerThread = new HandlerThread("LoadThread");
@@ -165,7 +234,7 @@ public class IdCard extends CordovaPlugin{
 	public boolean Init() {
 		// TODO Auto-generated method stub
 		if (ssF == null) {
-			Context context=this.cordova.getActivity().getApplicationContext(); 
+			Context context = activity.getApplicationContext(); 
 			ssF = new SSFingerInterfaceImp(context);
 		}
 		int power_res = ssF.f_powerOn();
@@ -193,8 +262,6 @@ public class IdCard extends CordovaPlugin{
 		}
 	}
 
-
-	
 	Runnable fpRun=new Runnable() {
 		@Override
 		public void run() {
