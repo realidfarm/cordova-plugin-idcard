@@ -52,7 +52,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.ionicframework.xmdemo430114.R;
+import com.realidfarm.alsfarm.R;
 
 /**************************************************
  * 芯片照比与捕获人像对界面

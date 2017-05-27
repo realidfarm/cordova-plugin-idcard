@@ -1,0 +1,135 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/oliveapp_activity_horizontal_margin"
+    android:paddingRight="@dimen/oliveapp_activity_horizontal_margin"
+    android:paddingTop="@dimen/oliveapp_activity_vertical_margin"
+    android:paddingBottom="@dimen/oliveapp_activity_vertical_margin"
+    tools:context=".liveness.SampleResultActivity">
+
+    <TextView
+        android:id="@+id/oliveapp_titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/oliveapp_offlineverification_demo_result"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="#91D2DA"
+        android:textColor="#FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/oliveapp_idCardImageView"
+        android:layout_width="120dp"
+        android:layout_height="167dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/oliveapp_titleTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="visible"
+        android:cropToPadding="true"
+        android:background="@drawable/oliveapp_imageview_bg"/>
+
+    <ImageView
+        android:id="@+id/oliveapp_photoImageView"
+        android:layout_width="120dp"
+        android:layout_height="167dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/oliveapp_titleTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="visible"
+        android:cropToPadding="true"
+        android:background="@drawable/oliveapp_imageview_bg"/>
+
+    <TextView
+        android:id="@+id/oliveappResultInfoTextView"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/oliveapp_offlineverification_demo_oliveapp_result_pic"
+        android:layout_below="@+id/oliveapp_photoImageView"
+        android:layout_alignLeft="@+id/oliveapp_photoImageView"
+        android:layout_alignStart="@+id/oliveapp_photoImageView"/>
+
+    <TextView
+        android:id="@+id/oliveapp_readerPicTextView"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/oliveapp_offlineverification_demo_reader_pic"
+        android:layout_below="@+id/oliveapp_idCardImageView"
+        android:layout_alignRight="@+id/oliveapp_idCardImageView"
+        android:layout_alignEnd="@+id/oliveapp_idCardImageView" />
+
+    <TextView
+        android:id="@+id/oliveapp_readerStatusTextTitleView"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/oliveapp_offlineverification_demo_reader_status"
+        android:gravity="right"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/oliveapp_readerStatusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/oliveapp_offlineverification_demo_reader_hint"
+        android:padding="10dp"
+        android:layout_alignTop="@id/oliveapp_readerStatusTextTitleView"
+        android:layout_toRightOf="@+id/oliveapp_readerStatusTextTitleView"
+        android:layout_toEndOf="@+id/oliveapp_readerStatusTextTitleView" />
+
+    <ImageView
+        android:id="@+id/oliveapp_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/oliveapp_readerStatusTextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#91D2DA"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/oliveapp_compareResultTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/oliveapp_offlineverification_demo_compare_result_title"
+        android:gravity="left"
+        android:padding="10dp"
+        android:layout_below="@+id/oliveapp_imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/oliveapp_compareResultTextView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/oliveapp_offlineverification_demo_compare_result_hint"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="140dp" />
+
+    <TextView
+        android:id="@+id/oliveapp_compareScoreResultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp" />
+
+
+</RelativeLayout>

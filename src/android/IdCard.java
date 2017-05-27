@@ -3,11 +3,13 @@ package com.realidfarm.idcard;
 import java.io.File;
 import java.util.Arrays;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
@@ -39,6 +41,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import com.sdses.fingerJar.SSFingerInterfaceImp;
 import com.sdses.id2CardInterface.ID2CardInterface;
 import com.sdses.tool.SSUtil;
@@ -46,9 +51,13 @@ import com.sdses.tool.SSUtil;
 import com.oliveapp.verify.sample.service.FaceService;
 import com.oliveapp.verify.sample.service.IRemoteService;
 import com.oliveapp.verify.sample.liveness.SampleResultActivity;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IdCard extends CordovaPlugin{
 
+	private CallbackContext context;
+	private Activity activity;
 	private static final int SERVICE_FACTORY_INIT_DONE = 0;
 	private static final int SERVICE_FACTORY_INIT_FAILED = 1;
 
@@ -66,12 +75,21 @@ public class IdCard extends CordovaPlugin{
 	private TextView tv_fpHint;
 	private boolean openFp=false;
 	byte[] fingerInfo = new byte[93238];
+
+    // 申请权限相关
+    private static String[] permissions = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+    };
+    private List<String> requestPermissions;
+    private static final int REQUEST_CODE = 1;
     private IRemoteService mIRemoteService; // 跨进程Service
     private boolean bIsInitialized; // 远程Service是否初始化完成
-	Activity activity = null;
 	
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         activity = this.cordova.getActivity();
+		context = callbackContext;
         if (action.equals("open")) {
     		id2Handle = new ID2CardInterface();
     		openRet=id2Handle.openReadCard();
@@ -160,13 +178,52 @@ public class IdCard extends CordovaPlugin{
 				e.printStackTrace();
 			}
         } else if (action.equals("verification")) {
-		  mProgressDialog = ProgressDialog.show(activity, "正在初始化...", "请稍等...", true, false);
-		  Intent intent = new Intent(activity, FaceService.class);
-		  activity.startService(intent);
-		  activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-		  return true;
+            if(checkPermission()) {
+                if(bIsInitialized){
+                    Intent i = new Intent(activity, SampleResultActivity.class);
+                    activity.startActivity(i);
+                }else{
+                    iniModules();
+                }
+            } else {
+                ActivityCompat.requestPermissions(activity, requestPermissions.toArray(new String[requestPermissions.size()]), REQUEST_CODE);
+            }
+		    return true;
 		}
         return false;
+    }
+
+    private void iniModules() {
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                mProgressDialog = ProgressDialog.show(activity, "正在初始化...", "请稍等...", true, false);
+                Intent intent = new Intent(activity, FaceService.class);
+                activity.startService(intent);
+                activity.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+            }
+        });
+    }
+
+    private boolean checkPermission() {
+        boolean flag = true;
+        requestPermissions = new ArrayList<>();
+
+        if (ContextCompat.checkSelfPermission(activity, permissions[0]) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions.add(permissions[0]);
+            flag = false;
+            Toast.makeText(activity, "请打开存储读写权限，确保APP正常运行", Toast.LENGTH_SHORT).show();
+        }
+        if (ContextCompat.checkSelfPermission(activity, permissions[1]) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions.add(permissions[1]);
+            flag = false;
+            Toast.makeText(activity, "请打开存储读写权限，确保APP正常运行", Toast.LENGTH_SHORT).show();
+        }
+        if (ContextCompat.checkSelfPermission(activity, permissions[2]) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions.add(permissions[2]);
+            flag = false;
+            Toast.makeText(activity, "没有摄像头权限我什么都做不了哦!", Toast.LENGTH_SHORT).show();
+        }
+        return flag;
     }
 
 	  private Handler handler1 = new Handler() {
