@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/lib/com.realidfarm.alsfarm"
+    android:paddingLeft="@dimen/oliveapp_activity_horizontal_margin"
+    android:paddingRight="@dimen/oliveapp_activity_horizontal_margin"
+    android:paddingTop="@dimen/oliveapp_activity_vertical_margin"
+    android:paddingBottom="@dimen/oliveapp_activity_vertical_margin"
+    tools:context=".LivenessDetectionMainActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/oliveapp_preview_hint_layout"
+        android:layout_above="@+id/oliveapp_hint_panel_layout">
+
+        <com.oliveapp.face.livenessdetectionviewsdk.uicomponents.FixedAspectLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:id="@+id/oliveapp_cameraPreviewLayout"
+            app:oliveapp_aspectRatio="1.33333"
+            app:oliveapp_fixMode="fixWidth">
+            <view
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.oliveapp.camerasdk.ui.CameraRootView"
+                android:id="@+id/oliveapp_cameraPreviewView"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"/>
+        </com.oliveapp.face.livenessdetectionviewsdk.uicomponents.FixedAspectLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/oliveapp_cameraPreviewLayout"
+            android:src="@drawable/oliveapp_face_without_skeleton"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="240dp"
+        android:layout_alignParentBottom="true"
+        android:background="#5DC6E2"
+        android:id="@+id/oliveapp_hint_panel_layout">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:id="@+id/oliveapp_step_hint_layout"
+            android:layout_centerVertical="true">
+            <com.oliveapp.face.livenessdetectionviewsdk.uicomponents.CircleImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/oliveapp_step_hint_image"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/oliveapp_action_hint_normal"
+                />
+            <TextView
+                android:layout_width="221dp"
+                android:layout_height="46dp"
+                android:id="@+id/oliveapp_step_hint_text"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:background="@drawable/oliveapp_hint_text_wrapper"
+                android:text="step_hint_focus"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp">
+            </TextView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:text="FrameRate: 0 FPS"
+        android:id="@+id/oliveapp_frame_rate_text"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

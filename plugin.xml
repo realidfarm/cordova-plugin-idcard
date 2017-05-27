@@ -63,8 +63,12 @@
         <source-file src="src/android/com/sdses/utils/Utils.java" target-dir="src/com/sdses/utils" />
         <source-file src="src/android/com/sdses/values/ClientVars.java" target-dir="src/com/sdses/values" />
         
-        <source-file src="src/android/success.wav" target-dir="res/raw" />
-        <source-file src="src/android/error.wav" target-dir="res/raw" />
+        <source-file src="src/android/res/raw/success.wav" target-dir="res/raw" />
+        <source-file src="src/android/res/raw/error.wav" target-dir="res/raw" />
+        <source-file src="src/android/res/raw/notsameperson.wav" target-dir="res/raw" />
+        <source-file src="src/android/res/raw/sameperson.wav" target-dir="res/raw" />
+        <source-file src="src/android/res/raw/startcaptureface.wav" target-dir="res/raw" />
+        <source-file src="src/android/res/raw/startcompareface.wav" target-dir="res/raw" />
 		
         <source-file src="src/android/AS60x_SDK.jar" target-dir="libs" />
         <source-file src="src/android/SDSES_GPIOControl_1.0.jar" target-dir="libs" />
@@ -73,6 +77,8 @@
         <source-file src="src/android/AraBMApiFp.jar" target-dir="libs" />
         <source-file src="src/android/bugly_crash_release__2.1.jar" target-dir="libs" />
         <source-file src="src/android/SSPfinger-1.17.jar" target-dir="libs" />
+        <source-file src="src/android/support-annotations-23.1.1-sources.jar" target-dir="libs" />
+        <source-file src="src/android/support-v4-23.1.1-sources.jar" target-dir="libs" />
 
         <source-file src="src/android/camera-release.aar" target-dir="libs" />
         <source-file src="src/android/liboffline_face_verification-release.aar" target-dir="libs" />
@@ -100,5 +106,26 @@
         <source-file src="src/android/armeabi/libAraBMApiFpAlgorithm.so" target-dir="libs/armeabi-v7a" />
         <source-file src="src/android/armeabi/libftrScanAPI.so" target-dir="libs/armeabi-v7a" />
         <source-file src="src/android/armeabi/libusb-1.0.so" target-dir="libs/armeabi-v7a" />
+
+        <source-file src="src/android/res/layout/oliveapp_activity_liveness_detection_main.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/layout/oliveapp_activity_sample_result.xml" target-dir="res/layout" />
+
+        <source-file src="src/android/res/drawable/arrow.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/fail.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/oliveapp_action_hint_normal.jpg" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/oliveapp_button_backgroud.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/oliveapp_face_black_shadow2.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/oliveapp_face_without_skeleton.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/oliveapp_hint_text_wrapper.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/oliveapp_imageview_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/th.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/tick.png" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable/warning.png" target-dir="res/drawable" />
+
+        <source-file src="src/android/res/values/colors.xml" target-dir="res/values" />
+        <source-file src="src/android/res/values/dimens.xml" target-dir="res/values" />
+        <source-file src="src/android/res/values/oliveapp_dimens.xml" target-dir="res/values" />
+        <source-file src="src/android/res/values/oliveapp_strings.xml" target-dir="res/values" />
+        <source-file src="src/android/res/values/oliveapp_styles.xml" target-dir="res/values" />
     </platform>
 </plugin>

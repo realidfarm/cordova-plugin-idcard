@@ -35,3 +35,7 @@ exports.Comparison = function(fingerInfo, success, error) {
 exports.idComparison = function(success, error) {
     exec(success, error, "IdCard", "idComparison", []);
 };
+
+exports.verification = function(success, error) {
+    exec(success, error, "IdCard", "verification", []);
+};

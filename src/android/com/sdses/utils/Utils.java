@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.ionicframework.xmdemo430114.R;
+import com.realidfarm.alsfarm.R;
 
 
 public class Utils {

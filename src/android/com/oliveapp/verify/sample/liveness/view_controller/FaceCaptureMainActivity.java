@@ -29,7 +29,7 @@ import com.oliveapp.face.livenessdetectorsdk.utilities.utils.PackageNameManager;
 
 import junit.framework.Assert;
 
-import com.ionicframework.xmdemo430114.R;
+import com.realidfarm.alsfarm.R;
 /**
  * ViewController 实现了主要的界面逻辑
  * 如果需要定义界面，请继承此类编写自己的Activity，并自己实现事件响应函数
